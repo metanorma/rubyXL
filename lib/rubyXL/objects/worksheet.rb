@@ -58,7 +58,7 @@ module RubyXL
   end
 
   class WorksheetFormatProperties < OOXMLObject
-    define_attribute(:baseColWidth,     :int,    :default => 8)
+    define_attribute(:baseColWidth,     :int,    :default => 10)
     define_attribute(:defaultColWidth,  :double)
     define_attribute(:defaultRowHeight, :double, :required => true)
     define_attribute(:customHeight,     :bool,   :default => false)
@@ -67,6 +67,7 @@ module RubyXL
     define_attribute(:thickBottom,      :bool,   :default => false)
     define_attribute(:outlineLevelRow,  :int,    :default => 0)
     define_attribute(:outlineLevelCol,  :int,    :default => 0)
+    define_attribute('x14ac:dyDescent', :double, :default => 0.2)
     define_element_name 'sheetFormatPr'
   end
 
@@ -397,7 +398,7 @@ module RubyXL
     define_attribute(:colorId,        :int,    :default => 64)
     define_attribute(:showPageBreaks, :bool,   :default => false)
     define_attribute(:showFormulas,   :bool,   :default => false)
-    define_attribute(:showGridLines,  :bool,   :default => true)
+    define_attribute(:showGridLines,  :uint,   :default => 0)
     define_attribute(:showRowCol,     :bool,   :default => true)
     define_attribute(:outlineSymbols, :bool,   :default => true)
     define_attribute(:zeroValues,     :bool,   :default => true)
@@ -581,7 +582,7 @@ module RubyXL
   class WorksheetView < OOXMLObject
     define_attribute(:windowProtection,         :bool, :default => false)
     define_attribute(:showFormulas,             :bool, :default => false)
-    define_attribute(:showGridLines,            :bool, :default => true)
+    define_attribute(:showGridLines,            :uint,  :default => 0)
     define_attribute(:showRowColHeaders,        :bool, :default => true)
     define_attribute(:showZeros,                :bool, :default => true)
     define_attribute(:rightToLeft,              :bool, :default => false)
@@ -681,7 +682,9 @@ module RubyXL
                    'http://schemas.openxmlformats.org/officeDocument/2006/relationships' => 'r',
                    'http://schemas.openxmlformats.org/markup-compatibility/2006' => 'mc',
                    'http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac' => 'x14ac',
-                   'urn:schemas-microsoft-com:mac:vml' => 'mv')
+                   'urn:schemas-microsoft-com:mac:vml' => 'mv',
+                   'mc:Ignorable' => 'x14ac xr xr2 xr3',
+                   'xr:uid' => '{00000000-0001-0000-0000-000000000000}')
 
     attr_accessor :workbook, :state, :sheet_name, :sheet_id, :rels
 
